@@ -1,0 +1,11 @@
+{
+    "lost": "Eltűnt",
+    "help": "Segíts visszajutni a gazdihoz",
+    "owner": "Tulajdonos",
+    "allergy": "Allergiák",
+    "book": "Oltási kiskönyv",
+    "age": {
+        "year": "éves",
+        "month": "hónapos"
+    }
+}
