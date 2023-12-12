@@ -21,15 +21,20 @@ function errorHandler($type, $text) {
     exit();
 }
 
-function generateAge($birth, $lang) {
-    $dateNow = new DateTime(date("Y-m-d"));
+function buildName($pet) {
+    $name = $pet["name"];
+    $name .= '<i class="bi bi-gender-'.$pet["bio"]["gender"].'"></i>';
+    return $name;
+}
+
+function generateAge($birth) {
+    $dateNow = new DateTime();
     $dateBirth = new DateTime($birth);
     $lifeTime = $dateBirth->diff($dateNow);
-    if ($lifeTime->y < 2) {
-        $months = $lifeTime->y * 12 + $lifeTime->m;
-        return $months . " " . $lang["month"];
+    if ($lifeTime->y == 0 && $lifeTime->m > 0) {
+        return [$lifeTime->m, "m"];
     } else {
-        return $lifeTime->y . " " . $lang["year"];
+        return [$lifeTime->y, "y"];
     }
 }
 
@@ -45,13 +50,59 @@ function lostAlert($lost) {
     }
 }
 
-function petInfo($petDB, $icons, $langJSON) {
-    $html = '<div class="bubble">';
-    $html .= generateAge($petDB["bio"]["birth"], $langJSON["age"]);
-    $html .= "</div>";
-    $html .= '<div class="bubble">';
-    $html .= $petDB["bio"]["sex"];
-    $html .= "</div>";
+function bioWidgets($petDB, $icons, $langJSON) {
+    $pet = $petDB["bio"];
+
+    function widgets($title, $value, $desc) {
+        if (!isset($title) & !isset($value) & !isset($desc)) {return null;}
+        return '<div class="widget">
+                <b>'.$title.'</b>
+                <div class="value">'.$value.'</div>
+                <div>'.$desc.'</div>
+            </div>';
+    }
+
+
+    /*
+    $bioData = [];
+    if (isset($pet["gender"])) {
+        $bioData["gender"] = [
+            "title" => "nem",
+            "value" => '<i class="bi bi-gender-'.$pet["gender"].'"></i>',
+            "desc" => "nőstény",
+        ];
+    }
+    if (isset($pet["steril"]) & $pet["steril"]) {
+        $bioData["steril"] = [
+            "title" => "ivartalan",
+            "value" => '<i class="bi bi-check-circle-fill"></i>',
+            "desc" => "igen",
+        ];
+    }
+    if (isset($pet["birth"])) {
+        $age = generateAge($pet["birth"]);
+        $bioData["age"] = $age[0];
+    }
+    */
+
+    $bioData = [];
+    if (isset($pet["birthday"])) {
+        $age = generateAge($pet["birthday"]);
+        $bioData["age"] = $age[0];
+    }
+
+
+
+    echo "<pre>";
+    print_r($bioData);
+    echo "<pre>";
+    return null;
+
+    // FINAL BUILD
+    $html = '';
+    foreach ($array as $item) {
+        $html .= widgets("Kor", "9", "hónapos");
+    }
     return $html;
 }
 ?>

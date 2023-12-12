@@ -1,5 +1,6 @@
 *.css
 *.css.map
 *.js
+/js
 /img
 *config.php
