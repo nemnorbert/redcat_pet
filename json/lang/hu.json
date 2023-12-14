@@ -19,12 +19,13 @@
         "month": "hónapos"
     },
     "lost": {
-        "alert": "${name} eltűnt ${value} ${unit}",
+        "title": "Eltűnt",
+        "text": "${name} eltűnt ${value} ${unit}",
         "call": "Gazdi hívása",
         "unit": {
             "m": "perce",
             "h": "órája",
-            "d": "perce"
+            "d": "napja"
         }
     },
     "species": {

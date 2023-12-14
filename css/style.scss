@@ -7,7 +7,12 @@ $maxW: 600px;
 $gap1: 1.5em;
 $bordRad1: 1em;
 $shadow1: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
-$colorPrimary: var(--mainColor);
+
+$colorPrimary: var(--colorMain);
+$colorBG1: rgb(240, 240, 240);
+$colorBG2: rgb(255, 255, 255);
+$colorText: black;
+$colorCover: #1d1d1dc9;
 
 //CSS
 * {
@@ -20,8 +25,18 @@ html {
 }
 body {
     padding: 1em 1em 0 1em;
-    background-color: antiquewhite;
+    background-color: $colorBG1;
     min-width: $minW;
+}
+body::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background-image: linear-gradient(to bottom, $colorPrimary, transparent);
+    z-index: -1;
 }
 a {
     text-decoration: none;
@@ -50,6 +65,33 @@ main > div {
     grid-column: span 12;
 }
 
+#preLoader {
+    z-index: 99999999;
+    position: fixed;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5rem;
+    color: whitesmoke;
+    background-color: $colorPrimary;
+    text-transform: uppercase;
+    font-weight: bold;
+    transition: opacity .2s;
+    text-shadow: $shadow1;
+
+    div {
+        z-index: 1;
+    }
+}
+#preLoader::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(200deg, transparent, rgba(15, 15, 15, 0.418));
+}
+
 /////////// COVER ///////////
 #cover {
     position: relative;
@@ -60,6 +102,22 @@ main > div {
     font-weight: bold;
 
     a {color: white;}
+
+    .lost {
+        position: absolute;
+        transform: translate(-50%, -50%);
+        left: 50%;
+        top: 60%;
+        color: red;
+        text-shadow: $shadow1;
+        font-size: 1.5em;
+        animation: lost1 5s infinite;
+
+        @keyframes lost1 {
+            0%, 100% {opacity: 1;}
+            50% {opacity: 0;}
+        }
+    }
     .top, .bottom {
         display: flex;
         align-items: center;
@@ -112,14 +170,14 @@ main > div {
         content: "";
         position: absolute;
         inset: 0;
-        background-image: linear-gradient(to bottom, $colorPrimary, transparent, transparent, transparent, $colorPrimary);
+        background-image: linear-gradient(to bottom, $colorCover, transparent, transparent, transparent, $colorCover);
         border-radius: $bordRad1;
     }
 }
 
 /////////// DETAILS ///////////
 #details {
-    background-color: white;
+    background-color: $colorBG2;
     box-shadow: $shadow1;
     border-radius: $bordRad1;
     width: clamp($minW, 100%, $maxW);
@@ -141,13 +199,9 @@ main > div {
     }
 }
 
-/////////// ALERT ///////////
-#alert {
-    background-color: red;
-    background-image: linear-gradient(to bottom, red, rgb(194, 0, 0));
+/////////// NAVIGATION ///////////
+nav {
     color: white;
-    padding: 10px;
-    border-radius: $bordRad1 $bordRad1 0 0;
     position: fixed;
     bottom: 0;
     left: 50%;
@@ -155,9 +209,22 @@ main > div {
     z-index: 5;
     font-size: 22px;
     text-align: center;
-    //text-transform: uppercase;
     width: clamp($minW, 100%, calc($maxW + 100px));
-    box-shadow: $shadow1, 0 0 3em red;
+    box-shadow: $shadow1, 0 0 3em $colorPrimary;
+
+    .info {
+        background-color: $colorPrimary;
+        display: flex;
+        justify-content: space-evenly;
+        padding: 7px;
+        font-size: 1.5em;
+    }
+    #notify {
+        color: red;
+        background-color: rgb(240, 240, 240);
+        font-size: 1.1em;
+        font-weight: bold;
+    }
 }
 
 /////////// FOOTER ///////////
@@ -180,5 +247,15 @@ footer {
     .creator {
         display: flex;
         flex-direction: column;
+    }
+}
+
+
+@media only screen and (min-width: $maxW) {
+    nav {
+        border-radius: 1em 1em 0 0;
+        .info {
+            border-radius: 1em 1em 0 0;
+        }
     }
 }

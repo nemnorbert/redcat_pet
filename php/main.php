@@ -9,16 +9,21 @@
     <!-- Styles -->
     <style>
         :root {
-            --mainColor: <?= $petDB["color"] ?? "#ccff66" ?>;
+            --colorMain: <?= $petDB["color"] ?? "#1e65cf" ?>;
+            <?= isset($petDB["bio"]["lost"]) ? "--colorMain: red;" : "" ?>
+            <?= isset($petDB["bio"]["lost"]) ? "--colorCover: red;" : "" ?>
         }
     </style>
 </head>
 <body>
-
-<?= isset($petDB["bio"]["lost"]) ? lostAlert($petDB) : null; ?>
+<div id="preLoader">
+    <div>Teszt</div>
+</div>
+<?= navBar($petDB); ?>
 
 <main>
     <div id="cover">
+        <?= isset($petDB["bio"]["lost"]) ? ('<div class="lost">'.$petDB["translate"]["lost"]["title"].'</div>') : ""; ?>
         <div class="top">
             <a class="brand" target="_blank" href="#">
                 <img class="logo" src="https://center.red-cat.hu/img/logo/logo1.svg" alt="Logo of creator">
@@ -52,5 +57,7 @@
     </a>
     <div title="<?= $petDB["version"]["description"] ?? "" ?>" id="version">v<?= $petDB["version"]["date"] ?? "" ?></div>
 </footer>
+
+<script src="js/main.js"></script>
 </body>
 </html>
