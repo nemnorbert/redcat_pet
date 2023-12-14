@@ -1,11 +1,34 @@
 {
-    "lost": "Eltűnt",
     "help": "Segíts visszajutni a gazdihoz",
     "owner": "Tulajdonos",
     "allergy": "Allergiák",
     "book": "Oltási kiskönyv",
+    "share": "Megosztás",
+
+    "steril": "Ivartalan",
+    "details": {
+        "pet": "Kiskedvenc",
+        "owner": "Gazdi"
+    },
+    "gender": {
+        "male": "Hím",
+        "female": "Nőstény"
+    },
     "age": {
         "year": "éves",
         "month": "hónapos"
+    },
+    "lost": {
+        "alert": "${name} eltűnt ${value} ${unit}",
+        "call": "Gazdi hívása",
+        "unit": {
+            "m": "perce",
+            "h": "órája",
+            "d": "perce"
+        }
+    },
+    "species": {
+        "1": "Kutya",
+        "2": "Macska"
     }
 }

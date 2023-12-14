@@ -7,7 +7,7 @@ $maxW: 600px;
 $gap1: 1.5em;
 $bordRad1: 1em;
 $shadow1: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
-
+$colorPrimary: var(--mainColor);
 
 //CSS
 * {
@@ -25,30 +25,18 @@ body {
 }
 a {
     text-decoration: none;
+    color: $colorPrimary;
 }
 .logo {
     height: 19px;
 }
 .btn {
-    background-color: yellow;
-    border-radius: 1em;
-    padding: .5em;
+    background-color: $colorPrimary;
+    border-radius: 2em;
+    padding: 0.5em 1em;
     box-shadow: $shadow1;
-}
-.widget {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: rgb(255, 102, 0);
-    border-radius: 1em;
-    box-shadow: $shadow1;
-    padding: .7em;
-
-    b {text-transform: uppercase;}
-    .value {
-        font-size: 1.5em;
-        font-weight: bold;
-    }
+    font-weight: bold;
+    text-align: center;
 }
 
 main {
@@ -56,6 +44,7 @@ main {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
     justify-items: center;
+    grid-row-gap: $gap1;
 }
 main > div {
     grid-column: span 12;
@@ -123,31 +112,62 @@ main > div {
         content: "";
         position: absolute;
         inset: 0;
-        background-image: linear-gradient(to bottom, rgba(255, 0, 234, 0.705), transparent, transparent, transparent, rgba(255, 0, 234, 0.541));
+        background-image: linear-gradient(to bottom, $colorPrimary, transparent, transparent, transparent, $colorPrimary);
         border-radius: $bordRad1;
     }
 }
 
-/////////// BIO ///////////
-#bio {
+/////////// DETAILS ///////////
+#details {
+    background-color: white;
+    box-shadow: $shadow1;
+    border-radius: $bordRad1;
     width: clamp($minW, 100%, $maxW);
-    display: flex;
-    padding: 1em;
-    flex-direction: column;
-    align-items: center;
-
-    #widgets {
+    .top {
         display: flex;
-        gap: .5em;
+        align-items: center;
+        justify-content: space-around;
+        padding: 1em;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+    .buttons {
+        display: flex;
+        justify-content: center;
+        padding: 0 .2em;
+        gap: 0.5em;
+        flex-wrap: wrap;
+        padding-bottom: 1em;
     }
 }
 
+/////////// ALERT ///////////
+#alert {
+    background-color: red;
+    background-image: linear-gradient(to bottom, red, rgb(194, 0, 0));
+    color: white;
+    padding: 10px;
+    border-radius: $bordRad1 $bordRad1 0 0;
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5;
+    font-size: 22px;
+    text-align: center;
+    //text-transform: uppercase;
+    width: clamp($minW, 100%, calc($maxW + 100px));
+    box-shadow: $shadow1, 0 0 3em red;
+}
+
+/////////// FOOTER ///////////
 footer {
     display: flex;
     flex-direction: column;
     border-radius: $bordRad1 $bordRad1 0 0;
     width: clamp($minW, 100%, $maxW);
     padding: 2em;
+    margin-top: $gap1;
     min-height: 300px;
     color: whitesmoke;
     background-color: black;
@@ -156,4 +176,9 @@ footer {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
+
+    .creator {
+        display: flex;
+        flex-direction: column;
+    }
 }

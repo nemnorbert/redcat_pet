@@ -27,81 +27,63 @@ function buildName($pet) {
     return $name;
 }
 
-function generateAge($birth) {
-    $dateNow = new DateTime();
-    $dateBirth = new DateTime($birth);
-    $lifeTime = $dateBirth->diff($dateNow);
-    if ($lifeTime->y == 0 && $lifeTime->m > 0) {
-        return [$lifeTime->m, "m"];
-    } else {
-        return [$lifeTime->y, "y"];
-    }
-}
-
-function lostAlert($lost) {
-    $now = new DateTime(date("Y-m-d"));
-    $lost = new DateTime($lost);
-    $lostTime = $lost->diff($now);
-
-    if ($lostTime->d < 3) {
-        return "Eltünt " . $lostTime->h . " órája";
-    } else {
-        return "Eltünt " . $lostTime->d . " napja";
-    }
+function lostAlert($petDB) {
+    $result = '<a href="tel:'.$petDB["owner"]["phone"].'" id="alert">
+        <b>'.$petDB["bio"]["lostText"].'</b><br>
+        <i class="bi bi-telephone-fill"></i> '.$petDB["translate"]["call"].'
+    </a>';
+    
+    return $result;
 }
 
 function bioWidgets($petDB, $icons, $langJSON) {
     $pet = $petDB["bio"];
 
-    function widgets($title, $value, $desc) {
-        if (!isset($title) & !isset($value) & !isset($desc)) {return null;}
-        return '<div class="widget">
-                <b>'.$title.'</b>
-                <div class="value">'.$value.'</div>
-                <div>'.$desc.'</div>
-            </div>';
+    function icon($icon) {
+        return '<i class="bi bi-'.$icon.'"></i> ';
+    }
+    function widgets($title) {
+        if (!isset($title)) {return null;}
+        return '<div class="btn">'.$title.'</div>';
     }
 
-
-    /*
     $bioData = [];
-    if (isset($pet["gender"])) {
-        $bioData["gender"] = [
-            "title" => "nem",
-            "value" => '<i class="bi bi-gender-'.$pet["gender"].'"></i>',
-            "desc" => "nőstény",
-        ];
+    if (isset($pet["species"])) {
+        $icon = 'egg';
+        $bioData["species"] = icon($icon).$pet["species"];
+    }
+    if (isset($pet["gender2"])) {
+        $icon = 'gender-'.$pet["gender"];
+        $bioData["gender"] = icon($icon).$pet["gender2"];
     }
     if (isset($pet["steril"]) & $pet["steril"]) {
-        $bioData["steril"] = [
-            "title" => "ivartalan",
-            "value" => '<i class="bi bi-check-circle-fill"></i>',
-            "desc" => "igen",
-        ];
+        $icon = 'check2-circle';
+        $bioData["steril"] = icon($icon).'Ivartalan';
     }
-    if (isset($pet["birth"])) {
-        $age = generateAge($pet["birth"]);
-        $bioData["age"] = $age[0];
+    if (isset($pet["age"])) {
+        $icon = 'clock-history';
+        $bioData["age"] = icon($icon).$pet["age"];
     }
-    */
-
-    $bioData = [];
     if (isset($pet["birthday"])) {
-        $age = generateAge($pet["birthday"]);
-        $bioData["age"] = $age[0];
+        $icon = 'cake2';
+        $bioData["birthday"] = icon($icon).$pet["birthday"];
+    }
+    if (isset($pet["chip"])) {
+        $icon = 'upc-scan';
+        $bioData["chip"] = icon($icon).'Chip: '.$pet["chip"];
     }
 
-
-
+/*
     echo "<pre>";
     print_r($bioData);
     echo "<pre>";
-    return null;
+    //return null;
+*/
 
     // FINAL BUILD
     $html = '';
-    foreach ($array as $item) {
-        $html .= widgets("Kor", "9", "hónapos");
+    foreach ($bioData as $key => $value) {
+        $html .= widgets($value);
     }
     return $html;
 }
