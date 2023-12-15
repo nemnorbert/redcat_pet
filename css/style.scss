@@ -4,14 +4,11 @@
 // SASS VAIABLES
 $minW: 250px;
 $maxW: 600px;
-$gap1: 1.5em;
+$gap1: 1em;
 $bordRad1: 1em;
 $shadow1: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
-
-$colorPrimary: var(--colorMain);
-$colorBG1: rgb(240, 240, 240);
-$colorBG2: rgb(255, 255, 255);
-$colorText: black;
+$transitionTime1: .5s;
+$colorPrimary: var(--colorPrimary, #20a1fd);
 $colorCover: #1d1d1dc9;
 
 //CSS
@@ -23,10 +20,25 @@ $colorCover: #1d1d1dc9;
 html {
     font-family: 'Poppins', sans-serif;
 }
+:root {
+    --colorBG1: rgb(219, 219, 219);
+    --colorBG2: rgb(255, 255, 255);
+    --colorText: rgb(17, 17, 17);
+}
+.darkmode {
+    --colorBG1: rgb(20 20 20);
+    --colorBG2: rgb(32 32 32);
+    --colorText: rgb(243, 243, 243);
+}
 body {
     padding: 1em 1em 0 1em;
-    background-color: $colorBG1;
+    background-color: var(--colorBG1);
     min-width: $minW;
+    transition: background-color $transitionTime1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 body::after {
     content: "";
@@ -38,19 +50,24 @@ body::after {
     background-image: linear-gradient(to bottom, $colorPrimary, transparent);
     z-index: -1;
 }
-a {
+a, .link {
     text-decoration: none;
     color: $colorPrimary;
+    cursor: pointer;
+}
+.hide {
+    opacity: 0;
 }
 .logo {
     height: 19px;
 }
 .btn {
     background-color: $colorPrimary;
+    color: var(--colorBG2);
+    transition: color $transitionTime1;
     border-radius: 2em;
     padding: 0.5em 1em;
     box-shadow: $shadow1;
-    font-weight: bold;
     text-align: center;
 }
 
@@ -60,9 +77,11 @@ main {
     grid-template-columns: repeat(12, 1fr);
     justify-items: center;
     grid-row-gap: $gap1;
+    color: var(--colorText);
 }
 main > div {
     grid-column: span 12;
+    transition: .5s opacity;
 }
 
 #preLoader {
@@ -73,14 +92,24 @@ main > div {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 5rem;
-    color: whitesmoke;
+    gap: 10px;
+    color: rgb(0, 0, 0);
     background-color: $colorPrimary;
     text-transform: uppercase;
     font-weight: bold;
     transition: opacity .2s;
     text-shadow: $shadow1;
+    font-size: 2em;
 
+    svg {
+        width: clamp(100px, 50%, 250px);
+        animation: loading 1s infinite;
+
+        @keyframes loading {
+            0%, 100% {transform: scale(1);}
+            80% {transform: scale(.8);}
+        }
+    }
     div {
         z-index: 1;
     }
@@ -138,7 +167,7 @@ main > div {
             column-gap: 5px;
         }
         #language {
-            border: 2px solid white;
+            border: 2px solid $colorPrimary;
             border-radius: .5em;
             padding: 0px 10px;
             font-size: 20px;
@@ -176,32 +205,42 @@ main > div {
 }
 
 /////////// DETAILS ///////////
-#details {
-    background-color: $colorBG2;
+.box {
+    background-color: var(--colorBG2);
+    transition: background-color $transitionTime1;
     box-shadow: $shadow1;
     border-radius: $bordRad1;
     width: clamp($minW, 100%, $maxW);
-    .top {
-        display: flex;
-        align-items: center;
-        justify-content: space-around;
-        padding: 1em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    gap: $gap1;
+    padding: $gap1 0;
+
+    .title {
         font-weight: bold;
         text-transform: uppercase;
+        font-size: 1.5em;
+        display: flex;
+        justify-content: center;
     }
     .buttons {
         display: flex;
         justify-content: center;
-        padding: 0 .2em;
         gap: 0.5em;
         flex-wrap: wrap;
-        padding-bottom: 1em;
+    }
+    .bottom {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        justify-content: space-evenly;
     }
 }
 
 /////////// NAVIGATION ///////////
 nav {
-    color: white;
+    color: var(--colorBG2);
     position: fixed;
     bottom: 0;
     left: 50%;
@@ -211,9 +250,9 @@ nav {
     text-align: center;
     width: clamp($minW, 100%, calc($maxW + 100px));
     box-shadow: $shadow1, 0 0 3em $colorPrimary;
+    background-color: $colorPrimary;
 
     .info {
-        background-color: $colorPrimary;
         display: flex;
         justify-content: space-evenly;
         padding: 7px;
@@ -231,6 +270,7 @@ nav {
 footer {
     display: flex;
     flex-direction: column;
+    align-items: center;
     border-radius: $bordRad1 $bordRad1 0 0;
     width: clamp($minW, 100%, $maxW);
     padding: 2em;
@@ -239,10 +279,6 @@ footer {
     color: whitesmoke;
     background-color: black;
     gap: 1em;
-    align-items: center;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
 
     .creator {
         display: flex;
@@ -254,8 +290,5 @@ footer {
 @media only screen and (min-width: $maxW) {
     nav {
         border-radius: 1em 1em 0 0;
-        .info {
-            border-radius: 1em 1em 0 0;
-        }
     }
 }

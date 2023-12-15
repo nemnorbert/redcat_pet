@@ -28,12 +28,13 @@ function buildName($pet) {
 }
 
 function navBar($petDB) {
+    $owner = $petDB["owner"];
     $result = '<nav>';
-    if (isset($petDB["owner"]["phone"]) || isset($petDB["owner"]["email"]) || isset($petDB["owner"]["redcat_id"])) {
+    if (isset($owner["phone"]) || isset($owner["email"]) || isset($owner["redcat_id"])) {
         $result .= '<div class="info">';
-        $result .= isset($petDB["owner"]["redcat_id"]) ? '<div class="card"><i class="bi bi-person-circle"></i></div>' : '';
-        $result .= isset($petDB["owner"]["phone"]) ? '<div class="phone"><i class="bi bi-telephone-fill"></i></div>' : '';
-        $result .= isset($petDB["owner"]["email"]) ? '<div class="email"><i class="bi bi-envelope-fill"></i></div>' : '';
+        $result .= isset($owner["redcat_id"]) ? '<div class="card"><i class="bi bi-person-circle"></i></div>' : '';
+        $result .= isset($owner["phone"]) ? '<div class="phone"><i class="bi bi-telephone-fill"></i></div>' : '';
+        $result .= isset($owner["email"]) ? '<div class="email"><i class="bi bi-envelope-fill"></i></div>' : '';
         $result .= '</div>';
     }
     $result .= isset($petDB["bio"]["lost"]) ? '<div id="notify" class="lost"></div>' : '';
@@ -41,7 +42,7 @@ function navBar($petDB) {
     return $result;
 }
 
-function bioWidgets($petDB, $icons, $langJSON) {
+function buildWidgets($petDB) {
     $pet = $petDB["bio"];
 
     function icon($icon) {
@@ -54,7 +55,7 @@ function bioWidgets($petDB, $icons, $langJSON) {
 
     $bioData = [];
     if (isset($pet["species"])) {
-        $icon = 'egg';
+        $icon = 'tag-fill';
         $bioData["species"] = icon($icon).$pet["species"];
     }
     if (isset($pet["gender2"])) {
@@ -63,7 +64,7 @@ function bioWidgets($petDB, $icons, $langJSON) {
     }
     if (isset($pet["steril"]) & $pet["steril"]) {
         $icon = 'check2-circle';
-        $bioData["steril"] = icon($icon).'Ivartalan';
+        $bioData["steril"] = icon($icon).$petDB["translate"]["steril"];
     }
     if (isset($pet["age"])) {
         $icon = 'clock-history';
@@ -78,18 +79,34 @@ function bioWidgets($petDB, $icons, $langJSON) {
         $bioData["chip"] = icon($icon).'Chip: '.$pet["chip"];
     }
 
-/*
-    echo "<pre>";
-    print_r($bioData);
-    echo "<pre>";
-    //return null;
-*/
-
     // FINAL BUILD
     $html = '';
     foreach ($bioData as $key => $value) {
         $html .= widgets($value);
     }
+    return $html;
+}
+
+function buildScript($site, $api) {
+    $shareData = array(
+        'title' => $api["name"].', REDCAT iD',
+        'text' => $api["translate"]["desc"],
+        'url' => $api["link"],
+    );
+    /*$combinedData = array(
+        'provider' => 'REDCAT iD',
+        'test' => $siteINFO -> test,
+        'mainPath' => $siteINFO->mainPath,
+        'redcatPath' => $siteINFO->redcatPath,
+    );*/
+    $combinedData = "";
+
+    $data = array('main' => $combinedData, 'api' => $api);
+
+    $shareDataJson = json_encode($shareData, JSON_HEX_QUOT);
+    $siteDataJson = json_encode($data, JSON_HEX_QUOT);
+
+    $html = "<script>let shareData = $shareDataJson; let siteData = $siteDataJson;</script>";
     return $html;
 }
 ?>

@@ -1,32 +1,28 @@
-console.log("teszt");
 let loadtime: number = new Date().getTime();
 const preLoaderBox: HTMLElement | null = document.querySelector("#preLoader");
+const langDiv: HTMLElement | null = document.querySelector("#language");
+const shareDivs = document.querySelectorAll(".share");
+const darkBtn: HTMLElement | null = document.querySelector("#dark");
 
 // CLASS
 class FetchWrapper {
     private baseURL: string;
-
     constructor(baseURL: string) {
         this.baseURL = baseURL;
     }
-
     get(endpoint: string) {
         return fetch(this.baseURL + endpoint)
             .then(response => response.json());
     }
-
     put(endpoint: string, body: any) {
         return this.send("put", endpoint, body);
     }
-
     post(endpoint: string, body: any) {
         return this.send("post", endpoint, body);
     }
-
     delete(endpoint: string, body: any) {
         return this.send("delete", endpoint, body);
     }
-
     private send(method: string, endpoint: string, body: any) {
         return fetch(this.baseURL + endpoint, {
             method,
@@ -41,19 +37,22 @@ class FetchWrapper {
 /////////////////////// Functions ///////////////////////
 const preLoader = () => {
     loadtime = new Date().getTime() - loadtime;
+    darkMode();
     console.log(loadtime + "ms");
   
     const ideal = 2000;
     const bonus = loadtime <= ideal ? ideal - loadtime : 0;
   
     setTimeout(() => {
-      if (preLoaderBox) {
-        Loader();
-  
-        setTimeout(() => {
-            //darkMode();
-        }, 500);
-      }
+        if (preLoaderBox) {
+            Loader();
+    
+            setTimeout(() => {
+                document.querySelectorAll(".hide").forEach(hide => {
+                    hide.classList.remove("hide");
+                });
+            }, 200);
+        }
     }, bonus);
   };
 
@@ -71,10 +70,38 @@ const Loader = () => {
 const shareIt = async () => {
     try {
       await navigator.share(shareData);
+      console.log(shareData);
     } catch (err) {
       console.log("This browser does not support the sharing feature.");
     }
 }
+
+const darkMode = () => {
+    const prefers = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (prefers) {
+      toggleDark();
+    }
+  }
+  
+  const toggleDark = () => {
+    const bodyClass = document.documentElement.classList;
+    const darkEnabled = bodyClass.contains("darkmode");
+  
+    if (darkEnabled) {
+      bodyClass.remove("darkmode");
+    } else {
+      bodyClass.add("darkmode");
+    }
+  
+    if (darkBtn) {
+        let icon = bodyClass.contains("darkmode") ? 'brightness-high' : 'moon';
+        darkBtn.innerHTML = `<i class="bi bi-${icon}-fill"></i>`
+    }
+}
+
+const langSwitch = () => {
+    console.log("nyelv");
+};
 
 const lostCalc = (db) => {
     let trans = db.translate.lost;
@@ -108,10 +135,24 @@ const lostCalc = (db) => {
     text = text.replace("${value}", value);
     text = text.replace("${unit}", unit);
 
-    console.log(text);
+    //console.log(text);
     document.querySelector("#notify").textContent = text;
 }
+
+const clickIt = (div: HTMLElement | NodeListOf<HTMLElement> | null, func: (event: Event) => void) => {
+    if (div instanceof NodeList) {
+      div.forEach(item => {
+        item.addEventListener("click", func);
+      });
+    } else if (div) {
+      div.addEventListener("click", func);
+    }
+  }
   
+/////////////////////// Add Event Listener ///////////////////////
+clickIt(shareDivs, shareIt);
+clickIt(langDiv, langSwitch);
+clickIt(darkBtn, toggleDark);
 
 /////////////////////// Main ///////////////////////
 const petAPI = new FetchWrapper("http://localhost/redcat/api/");
@@ -121,5 +162,7 @@ petAPI.get("redcatPet?url=minta1")
         const pet = data;
         if (pet.bio.lost) {lostCalc(data)}
     })
+
+
 
 window.addEventListener("load", preLoader);

@@ -4,10 +4,14 @@
     "allergy": "Allergiák",
     "book": "Oltási kiskönyv",
     "share": "Megosztás",
+    "dark": "Sötét mód",
 
-    "steril": "Ivartalan",
+    "steril": "Ivartalanítva",
+    "meta": {
+        "desc": "Kis kedvenced okos bilétája"
+    },
     "details": {
-        "pet": "Kiskedvenc",
+        "pet": "Adatok",
         "owner": "Gazdi"
     },
     "gender": {
@@ -20,8 +24,7 @@
     },
     "lost": {
         "title": "Eltűnt",
-        "text": "${name} eltűnt ${value} ${unit}",
-        "call": "Gazdi hívása",
+        "text": "${name} ${value} ${unit} eltűnt",
         "unit": {
             "m": "perce",
             "h": "órája",
