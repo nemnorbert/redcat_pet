@@ -5,7 +5,7 @@
 $minW: 250px;
 $maxW: 600px;
 $gap1: 1em;
-$bordRad1: 1em;
+$bordRad1: 30px;
 $shadow1: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
 $transitionTime1: .5s;
 $colorPrimary: var(--colorPrimary, #20a1fd);
@@ -21,13 +21,13 @@ html {
     font-family: 'Poppins', sans-serif;
 }
 :root {
-    --colorBG1: rgb(219, 219, 219);
+    --colorBG1: rgb(234 234 234);
     --colorBG2: rgb(255, 255, 255);
     --colorText: rgb(17, 17, 17);
 }
 .darkmode {
     --colorBG1: rgb(20 20 20);
-    --colorBG2: rgb(32 32 32);
+    --colorBG2: rgb(30 30 30);
     --colorText: rgb(243, 243, 243);
 }
 body {
@@ -153,8 +153,7 @@ main > div {
         justify-content: space-between;
         width: 100%;
         position: absolute;
-        padding: .5em;
-        padding-left: 1em;
+        padding: 0.5em 1em;
         z-index: 1;
     }
 
@@ -165,13 +164,6 @@ main > div {
             display: flex;
             align-items: center;
             column-gap: 5px;
-        }
-        #language {
-            border: 2px solid $colorPrimary;
-            border-radius: .5em;
-            padding: 0px 10px;
-            font-size: 20px;
-            cursor: pointer;
         }
     }
 
@@ -252,6 +244,9 @@ nav {
     box-shadow: $shadow1, 0 0 3em $colorPrimary;
     background-color: $colorPrimary;
 
+    a {
+        color: var(--colorBG1);
+    }
     .info {
         display: flex;
         justify-content: space-evenly;

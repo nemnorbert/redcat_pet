@@ -1,10 +1,12 @@
 {
-    "type": {
-        "default": "other",
-        "1": "registered",
-        "2": "death",
-        "3": "lost",
-        "4": "found"
+    "site": "redcat_pet",
+    "mainPath": {
+        "test": "/redcat_pet/",
+        "web": "/"
+    },
+    "redcatPath": {
+        "test": "/redcat/",
+        "web": "https://center.red-cat.hu/"
     },
     "colors": {
         "1": ["#50bb0b", "green"],

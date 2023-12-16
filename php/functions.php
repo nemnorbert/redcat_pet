@@ -30,10 +30,9 @@ function buildName($pet) {
 function navBar($petDB) {
     $owner = $petDB["owner"];
     $result = '<nav>';
-    if (isset($owner["phone"]) || isset($owner["email"]) || isset($owner["redcat_id"])) {
+    if (isset($owner["phone"]) || isset($owner["email"])) {
         $result .= '<div class="info">';
-        $result .= isset($owner["redcat_id"]) ? '<div class="card"><i class="bi bi-person-circle"></i></div>' : '';
-        $result .= isset($owner["phone"]) ? '<div class="phone"><i class="bi bi-telephone-fill"></i></div>' : '';
+        $result .= isset($owner["phone"]) ? '<a href="tel:'.$owner["phone"].'" class="phone"><i class="bi bi-telephone-fill"></i></a>' : '';
         $result .= isset($owner["email"]) ? '<div class="email"><i class="bi bi-envelope-fill"></i></div>' : '';
         $result .= '</div>';
     }
