@@ -8,6 +8,7 @@ $gap1: 1em;
 $bordRad1: 30px;
 $shadow1: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
 $transitionTime1: .5s;
+$transitionTime2: 1s;
 $colorPrimary: var(--colorPrimary, #20a1fd);
 $colorCover: #1d1d1dc9;
 
@@ -21,8 +22,8 @@ html {
     font-family: 'Poppins', sans-serif;
 }
 :root {
-    --colorBG1: rgb(234 234 234);
-    --colorBG2: rgb(255, 255, 255);
+    --colorBG1: rgb(255, 255, 255);
+    --colorBG2: rgb(230, 230, 230);
     --colorText: rgb(17, 17, 17);
 }
 .darkmode {
@@ -46,7 +47,7 @@ body::after {
     top: 0;
     left: 0;
     width: 100%;
-    height: 50%;
+    height: 300px;
     background-image: linear-gradient(to bottom, $colorPrimary, transparent);
     z-index: -1;
 }
@@ -63,7 +64,7 @@ a, .link {
 }
 .btn {
     background-color: $colorPrimary;
-    color: var(--colorBG2);
+    color: white;
     transition: color $transitionTime1;
     border-radius: 2em;
     padding: 0.5em 1em;
@@ -84,7 +85,7 @@ main > div {
     transition: .5s opacity;
 }
 
-#preLoader {
+#loading {
     z-index: 99999999;
     position: fixed;
     inset: 0;
@@ -95,6 +96,7 @@ main > div {
     gap: 10px;
     color: rgb(0, 0, 0);
     background-color: $colorPrimary;
+    background-image: linear-gradient(#ffffff24, transparent, #0000002e);
     text-transform: uppercase;
     font-weight: bold;
     transition: opacity .2s;
@@ -130,7 +132,7 @@ main > div {
     font-size: 25px;
     font-weight: bold;
 
-    a {color: white;}
+    .link {color: white;}
 
     .lost {
         position: absolute;
@@ -198,24 +200,13 @@ main > div {
 
 /////////// DETAILS ///////////
 .box {
-    background-color: var(--colorBG2);
-    transition: background-color $transitionTime1;
-    box-shadow: $shadow1;
+    transition: background-color $transitionTime2;
     border-radius: $bordRad1;
     width: clamp($minW, 100%, $maxW);
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
     gap: $gap1;
-    padding: $gap1 0;
 
-    .title {
-        font-weight: bold;
-        text-transform: uppercase;
-        font-size: 1.5em;
-        display: flex;
-        justify-content: center;
-    }
     .buttons {
         display: flex;
         justify-content: center;
@@ -244,8 +235,9 @@ nav {
     box-shadow: $shadow1, 0 0 3em $colorPrimary;
     background-color: $colorPrimary;
 
-    a {
-        color: var(--colorBG1);
+    a, .link {
+        color: white;
+        text-shadow: $shadow1;
     }
     .info {
         display: flex;
@@ -271,8 +263,6 @@ footer {
     padding: 2em;
     margin-top: $gap1;
     min-height: 300px;
-    color: whitesmoke;
-    background-color: black;
     gap: 1em;
 
     .creator {

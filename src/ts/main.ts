@@ -1,8 +1,8 @@
 let loadtime: number = new Date().getTime();
-const preLoaderBox: HTMLElement | null = document.querySelector("#preLoader");
+const preLoaderBox: HTMLElement | null = document.querySelector("#loading");
 const langDiv: HTMLElement | null = document.querySelector("#language");
 const shareDivs = document.querySelectorAll(".share");
-const darkBtn: HTMLElement | null = document.querySelector("#dark");
+const darkBtn: HTMLElement | null = document.querySelector("#darkmode");
 
 // CLASS
 class FetchWrapper {
@@ -37,21 +37,21 @@ class FetchWrapper {
 /////////////////////// Functions ///////////////////////
 const preLoader = () => {
     loadtime = new Date().getTime() - loadtime;
-    darkMode();
     console.log(loadtime + "ms");
-  
+    
     const ideal = 2000;
     const bonus = loadtime <= ideal ? ideal - loadtime : 0;
-  
+    
     setTimeout(() => {
         if (preLoaderBox) {
             Loader();
-    
+            document.querySelectorAll(".hide").forEach(hide => {
+                hide.classList.remove("hide");
+            });
+            
             setTimeout(() => {
-                document.querySelectorAll(".hide").forEach(hide => {
-                    hide.classList.remove("hide");
-                });
-            }, 200);
+                darkMode();
+            }, 500);
         }
     }, bonus);
   };

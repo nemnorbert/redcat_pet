@@ -33,7 +33,7 @@ function navBar($petDB) {
     if (isset($owner["phone"]) || isset($owner["email"])) {
         $result .= '<div class="info">';
         $result .= isset($owner["phone"]) ? '<a href="tel:'.$owner["phone"].'" class="phone"><i class="bi bi-telephone-fill"></i></a>' : '';
-        $result .= isset($owner["email"]) ? '<div class="email"><i class="bi bi-envelope-fill"></i></div>' : '';
+        $result .= isset($owner["email"]) ? '<div class="link email"><i class="bi bi-envelope-fill"></i></div>' : '';
         $result .= '</div>';
     }
     $result .= isset($petDB["bio"]["lost"]) ? '<div id="notify" class="lost"></div>' : '';
