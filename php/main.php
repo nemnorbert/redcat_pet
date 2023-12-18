@@ -49,8 +49,9 @@
 </main>
 
 <footer>
-    <a class="creator" target="_blank" href="https://red-cat.hu" class="logo">
-        <b>Powered by</b> <img class="logo" src="https://center.red-cat.hu/img/logo/logo1.svg" alt="Logo of creator">
+    <a class="creator" target="_blank" href="https://red-cat.hu">
+        <div>Powered by</div>
+        <img class="logo" src="<?= $siteINFO -> redcatPath ?>img/logo/logo1.svg" alt="Logo of creator">
     </a>
     <div title="<?= $API["version"]["description"] ?? "" ?>" id="version">v<?= $API["version"]["date"] ?? "" ?></div>
 </footer>

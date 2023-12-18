@@ -1,11 +1,8 @@
 {
-    "help": "Segíts visszajutni a gazdihoz",
-    "owner": "Tulajdonos",
     "allergy": "Allergiák",
     "book": "Oltási kiskönyv",
     "share": "Megosztás",
     "dark": "Sötét mód",
-
     "steril": "Ivartalanítva",
     "meta": {
         "desc": "Kis kedvenced okos bilétája"

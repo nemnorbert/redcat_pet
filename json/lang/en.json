@@ -1,0 +1,35 @@
+{
+    "allergy": "Allergies",
+    "book": "Vaccination Record",
+    "share": "Share",
+    "dark": "Dark Mode",
+    "steril": "Neutered",
+    "meta": {
+        "desc": "Smart tag for your little companion"
+    },
+    "details": {
+        "pet": "Details",
+        "owner": "Owner"
+    },
+    "gender": {
+        "male": "Male",
+        "female": "Female"
+    },
+    "age": {
+        "year": "years",
+        "month": "months"
+    },
+    "lost": {
+        "title": "Lost",
+        "text": "${name} has been missing for ${value} ${unit}",
+        "unit": {
+            "m": "minutes",
+            "h": "hours",
+            "d": "days"
+        }
+    },
+    "species": {
+        "1": "Dog",
+        "2": "Cat"
+    }
+}
