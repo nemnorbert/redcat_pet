@@ -31,10 +31,9 @@ $siteINFO -> page = $parts[1];
 
 // Connect API
 try {
-    $API = $siteINFO -> test ? 'http://localhost/redcat/' : 'https://center.red-cat.hu/';
-    $API = $API . 'api/redcatPet?url='.$siteINFO->page.'&lang='.$siteINFO->langSite;
+    $API = $siteINFO -> test ? 'http://localhost/redcat_api/' : 'https://api.red-cat.hu/';
+    $API = $API . 'redcatPet?url='.$siteINFO->page.'&lang='.$siteINFO->langSite;
     $API = loadJSON($API);
-
     if ($API === null) {errorHandler("error_api", "Error with API");}
     if (!isset($API["id"])) {errorHandler("error_404", "Page not found");}
 } catch (\Throwable $th) {

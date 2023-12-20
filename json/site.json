@@ -1,5 +1,6 @@
 {
     "site": "redcat_pet",
+    "language": ["en", "hu"],
     "mainPath": {
         "test": "/redcat_pet/",
         "web": "/"

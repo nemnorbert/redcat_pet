@@ -78,23 +78,14 @@ const shareIt = async () => {
 
 const darkMode = () => {
     const prefers = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    if (prefers) {
-      toggleDark();
-    }
-  }
-  
-  const toggleDark = () => {
+    if (prefers) {toggleDark();}
+}
+
+const toggleDark = () => {
     const bodyClass = document.documentElement.classList;
-    const darkEnabled = bodyClass.contains("darkmode");
-  
-    if (darkEnabled) {
-      bodyClass.remove("darkmode");
-    } else {
-      bodyClass.add("darkmode");
-    }
-  
+    bodyClass.toggle("darkmode");
     if (darkBtn) {
-        let icon = bodyClass.contains("darkmode") ? 'brightness-high' : 'moon';
+        const icon = bodyClass.contains("darkmode") ? 'brightness-high' : 'moon';
         darkBtn.innerHTML = `<i class="bi bi-${icon}-fill"></i>`
     }
 }
@@ -155,14 +146,12 @@ clickIt(langDiv, langSwitch);
 clickIt(darkBtn, toggleDark);
 
 /////////////////////// Main ///////////////////////
-const petAPI = new FetchWrapper("http://localhost/redcat/api/");
+const petAPI = new FetchWrapper("http://localhost/redcat_api/");
 petAPI.get("redcatPet?url=minta1")
     .then(data => {
         console.log(data)
         const pet = data;
         if (pet.bio.lost) {lostCalc(data)}
     })
-
-
 
 window.addEventListener("load", preLoader);
