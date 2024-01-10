@@ -9,6 +9,9 @@
         "test": "/redcat/",
         "web": "https://center.red-cat.hu/"
     },
+    "version": {
+        "bootstrap": "1.10.5"
+    },
     "colors": {
         "1": ["#50bb0b", "green"],
         "2": ["#13b7e8", "blue"],

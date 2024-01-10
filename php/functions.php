@@ -16,9 +16,21 @@ function loadJSON($filePath) {
     }
 }
 
-function errorHandler($type, $text) {        
-    var_dump($type);
+function errorHandler($code, $text) {
+    $link = $_SERVER['SERVER_NAME'] === 'localhost' ? "/redcat_home/" : "https://red-cat.hu/";
+    $link .= "error?id=" . $code;
+    header("Location: ".$link);
     exit();
+}
+
+function profilePicture($API, $centerpath) {      
+    $profile = $API["media"]["profile"] ?? false;
+    $image = "default";
+    if ($profile && isset($API["id"])) {
+        $image = $API["id"];
+    }
+    $result = $centerpath . 'media/pet_img/' . $image . '.webp';
+    return '<img src="'.$result.'." alt="">';
 }
 
 function buildName($pet) {
@@ -30,6 +42,7 @@ function buildName($pet) {
 function navBar($petDB) {
     $owner = $petDB["owner"];
     $result = '<nav>';
+    $result .= '<div class="title">'.$petDB["translate"]["owner"].'</div>';
     if (isset($owner["phone"]) || isset($owner["email"])) {
         $result .= '<div class="info">';
         $result .= isset($owner["phone"]) ? '<a href="tel:'.$owner["phone"].'" class="phone"><i class="bi bi-telephone-fill"></i></a>' : '';
@@ -37,7 +50,7 @@ function navBar($petDB) {
         $result .= '<div class="link share"><i class="bi bi-share-fill"></i></div>';
         $result .= '</div>';
     }
-    $result .= isset($petDB["bio"]["lost"]) ? '<div id="notify" class="lost"></div>' : '';
+    //$result .= isset($petDB["bio"]["lost"]) ? '<div id="notify" class="lost"></div>' : '';
     $result .= '</nav>';
     return $result;
 }

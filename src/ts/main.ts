@@ -126,8 +126,8 @@ const lostCalc = (db) => {
     text = text.replace("${value}", value);
     text = text.replace("${unit}", unit);
 
-    //console.log(text);
-    document.querySelector("#notify").textContent = text;
+    console.log(text);
+    document.querySelector("nav .title").textContent = text;
 }
 
 const clickIt = (div: HTMLElement | NodeListOf<HTMLElement> | null, func: (event: Event) => void) => {
@@ -147,7 +147,7 @@ clickIt(darkBtn, toggleDark);
 
 /////////////////////// Main ///////////////////////
 const petAPI = new FetchWrapper("http://localhost/redcat_api/");
-petAPI.get("redcatPet?url=minta1")
+petAPI.get(`redcatPet?url=${petUrl}`)
     .then(data => {
         console.log(data)
         const pet = data;
