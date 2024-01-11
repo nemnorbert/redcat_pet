@@ -30,7 +30,7 @@ function profilePicture($API, $centerpath) {
         $image = $API["id"];
     }
     $result = $centerpath . 'media/pet_img/' . $image . '.webp';
-    return '<img src="'.$result.'." alt="">';
+    return '<img src="'.$result.'" alt="">';
 }
 
 function buildName($pet) {
@@ -82,10 +82,6 @@ function buildWidgets($petDB) {
     if (isset($pet["age"])) {
         $icon = 'clock-history';
         $bioData["age"] = icon($icon).$pet["age"];
-    }
-    if (isset($pet["birthday"])) {
-        $icon = 'cake2';
-        $bioData["birthday"] = icon($icon).$pet["birthday"];
     }
     if (isset($pet["chip"])) {
         $icon = 'upc-scan';

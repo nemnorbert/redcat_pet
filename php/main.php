@@ -7,7 +7,6 @@
     <meta name="description" content="<?= $API["translate"]["desc"] ?>">
     <title><?= $API["name"].", REDCAT Pet" ?? errorHandler("error_api", "Error with API"); ?></title>
     <link rel="canonical" href="<?= $API["link"] ?>">
-    <link rel="stylesheet" href="<?= $siteINFO->redcatPath ?>style/brand.css">
     <link rel="icon" type="image/x-icon" href="<?= $siteINFO->redcatPath ?>img/favicon/icon.ico">
     <link rel="apple-touch-icon" href="<?= $siteINFO->redcatPath ?>img/apple_logo.png">
 
@@ -72,6 +71,7 @@
         unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
         }
     </style>
+    <link rel="stylesheet" href="<?= $siteINFO->redcatPath ?>style/brand.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="<?= $siteINFO->redcatPath ?>thirdparty/bootstrap-icons-<?= $siteJSON["version"]["bootstrap"] ?>/font/bootstrap-icons.min.css">
 
