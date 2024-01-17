@@ -25,11 +25,13 @@ function errorHandler($code, $text) {
 
 function profilePicture($API, $centerpath) {      
     $profile = $API["media"]["profile"] ?? false;
-    $image = "default";
+    $image = $API["bio"]["species"] ?? "default";
+    $path = 'default';
     if ($profile && isset($API["id"])) {
         $image = $API["id"];
+        $path = 'img';
     }
-    $result = $centerpath . 'media/pet_img/' . $image . '.webp';
+    $result = $centerpath . 'media/pet_'.$path.'/' . $image . '.webp';
     return '<img src="'.$result.'" alt="">';
 }
 
@@ -42,8 +44,8 @@ function buildName($pet) {
 function navBar($petDB) {
     $owner = $petDB["owner"];
     $result = '<nav>';
-    $result .= '<div class="title">'.$petDB["translate"]["owner"].'</div>';
     if (isset($owner["phone"]) || isset($owner["email"])) {
+    $result .= '<div class="title">'.$petDB["translate"]["owner"].'</div>';
         $result .= '<div class="info">';
         $result .= isset($owner["phone"]) ? '<a href="tel:'.$owner["phone"].'" class="phone"><i class="bi bi-telephone-fill"></i></a>' : '';
         $result .= isset($owner["email"]) ? '<div class="link email"><i class="bi bi-envelope-fill"></i></div>' : '';
@@ -55,8 +57,9 @@ function navBar($petDB) {
     return $result;
 }
 
-function buildWidgets($petDB) {
-    $pet = $petDB["bio"];
+function buildWidgets($API) {
+    $pet = $API["bio"];
+    $translate = $API["translate"];
 
     function icon($icon) {
         return '<i class="bi bi-'.$icon.'"></i> ';
@@ -67,25 +70,25 @@ function buildWidgets($petDB) {
     }
 
     $bioData = [];
-    if (isset($pet["species"])) {
+    if (isset($translate["species"])) {
         $icon = 'tag-fill';
-        $bioData["species"] = icon($icon).$pet["species"];
+        $bioData["species"] = icon($icon).$translate["species"];
     }
-    if (isset($pet["gender2"])) {
+    if (isset($translate["gender"])) {
         $icon = 'gender-'.$pet["gender"];
-        $bioData["gender"] = icon($icon).$pet["gender2"];
+        $bioData["gender"] = icon($icon).$translate["gender"];
     }
     if (isset($pet["steril"]) & $pet["steril"]) {
         $icon = 'check2-circle';
-        $bioData["steril"] = icon($icon).$petDB["translate"]["steril"];
+        $bioData["steril"] = icon($icon).$translate["steril"];
     }
-    if (isset($pet["age"])) {
+    if (isset($translate["age"])) {
         $icon = 'clock-history';
-        $bioData["age"] = icon($icon).$pet["age"];
+        $bioData["age"] = icon($icon).$translate["age"];
     }
     if (isset($pet["chip"])) {
         $icon = 'upc-scan';
-        $bioData["chip"] = icon($icon).'Chip: '.$pet["chip"];
+        $bioData["chip"] = icon($icon).'Chip';
     }
 
     // FINAL BUILD
@@ -102,12 +105,6 @@ function buildScript($site, $api) {
         'text' => $api["translate"]["desc"],
         'url' => $api["link"],
     );
-    /*$combinedData = array(
-        'provider' => 'REDCAT iD',
-        'test' => $siteINFO -> test,
-        'mainPath' => $siteINFO->mainPath,
-        'redcatPath' => $siteINFO->redcatPath,
-    );*/
     $combinedData = "";
 
     $data = array('main' => $combinedData, 'api' => $api);

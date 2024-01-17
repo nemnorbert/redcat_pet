@@ -71,8 +71,8 @@
         unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
         }
     </style>
-    <link rel="stylesheet" href="<?= $siteINFO->redcatPath ?>style/brand.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="<?= $siteINFO->redcatPath ?>style/brand.css?v=<?= time(); ?>">
+    <link rel="stylesheet" href="css/style.css?v=<?= $siteINFO -> test ? time() : $dataAPI["version"]["date"]; ?>">
     <link rel="stylesheet" href="<?= $siteINFO->redcatPath ?>thirdparty/bootstrap-icons-<?= $siteJSON["version"]["bootstrap"] ?>/font/bootstrap-icons.min.css">
 
     <meta property="og:title" content="<?= $API["name"]." (REDCAT Pet)" ?>">
@@ -128,6 +128,6 @@
 <script>
     const petUrl = "<?= $API["id"] ?>";
 </script>
-<script src="js/main.js"></script>
+<script src="js/main.js?v=<?= $siteINFO -> test ? time() : $dataAPI["version"]["date"]; ?>"></script>
 </body>
 </html>
