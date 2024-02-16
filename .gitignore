@@ -1,6 +1,5 @@
+/node_modules
+/old
 *.css
 *.css.map
-*.js
-/js
-/img
-*config.php
+*config*
